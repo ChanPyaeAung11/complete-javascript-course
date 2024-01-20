@@ -18,7 +18,7 @@ console.log(typeof javaScriptIsFun);
 let year;
 console.log(year);
 
-year = null;
+year = s;
 console.log(year);
 console.log(typeof year); // this will say object which is wrong. but this error is not fixed.
 // var is function scoped
