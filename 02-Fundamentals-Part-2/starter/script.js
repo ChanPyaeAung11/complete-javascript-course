@@ -15,7 +15,7 @@ function logger(){
 }
 
 function funcTest(hello, there){
-    console.log("Cool", hello, "Shit", there);
+    console.log("Cool", hello, "Shit", there);  
     console.log(1980 - hello); // pukes out NaN
     return "something";
 }
@@ -25,6 +25,8 @@ funcTest(); // will print out undefined as i dont put any arguments
 console.log(funcTest("hello", "there"));
 funcTest("hello", "there", "general", "kenobi"); // extra parameters will not used.
 
+// function delcrations can be called before they are defined.
+console.log(calcAge1(2001));
 // function delcration
 function calcAge1(birthYear){
     return 2037 - birthYear;
@@ -35,4 +37,16 @@ const calcAge2 = function (birthYear){
 return 2037 - birthYear;
 }
 
-console.log(calcAge1(), calcAge2())
+console.log(calcAge1(2001), calcAge2(2001))
+
+// arrow function expression
+const calcAge3 = birthYear => 2027 - birthYear
+
+console.log(calcAge3(2001))
+
+const yearsUntilRetirement = (birthYear, firstName) =>{ // if multiple paramters, () neeeded.
+    const retirement = 65 - calcAge3(birthYear);
+    return `${firstName} retires in ${retirement > 0 ? retirement : -1} years.` // if multiple lines of code, return required.
+}
+
+console.log(yearsUntilRetirement(2001, `Chan`));
