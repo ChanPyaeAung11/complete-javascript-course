@@ -1,6 +1,5 @@
-
 // // need to be first line of code. if other codes are above, this will not activate. can also be on functions and blocks.
-// 'use strict'; 
+// 'use strict';
 // // not allowed to do some things and if there is error not highlighted, will be visibile. thse make code secure by not allowing bugs to program
 
 // let hasDriversLicense = false;
@@ -15,7 +14,7 @@
 // }
 
 // function funcTest(hello, there){
-//     console.log("Cool", hello, "Shit", there);  
+//     console.log("Cool", hello, "Shit", there);
 //     console.log(1980 - hello); // pukes out NaN
 //     return "something";
 // }
@@ -28,8 +27,8 @@
 // function delcrations can be called before they are defined.
 console.log(calcAge1(2001));
 // function delcration
-function calcAge1(birthYear){
-    return 2037 - birthYear;
+function calcAge1(birthYear) {
+  return 2037 - birthYear;
 }
 
 // // anonymous function. this function returns value. so, function expression
@@ -65,10 +64,10 @@ const years = new Array(1991, 1992, 1993, 1994);
 // console.log(friends);
 
 // // raises an error cuz reassigning a const variable.
-friends = ['Lee', 'Loe', 'May'];
+friends = ["Lee", "Loe", "May"];
 
 // arrays can have diff value types unlike in java lol
-const jonas = ['jonas', 'nick', 1990 - 2001, true, null, friends];
+const jonas = ["jonas", "nick", 1990 - 2001, true, null, friends];
 // console.log(jonas);
 
 // console.log(calcAge1(years[0]));
@@ -78,7 +77,7 @@ const jonas = ['jonas', 'nick', 1990 - 2001, true, null, friends];
 // const dynamicArr =[calcAge1(years[0]), calcAge2(years[1]), calcAge3(years[years.length-1])];
 // console.log(dynamicArr);
 
-// console.log(friends.push('Leno')); 
+// console.log(friends.push('Leno'));
 
 // friends.unshift('John');
 // console.log(friends.pop());
@@ -90,30 +89,30 @@ const jonas = ['jonas', 'nick', 1990 - 2001, true, null, friends];
 
 // // Objects
 
-const chan ={
-    firstName : "Chan", 
-    lastName : "Aung",
-    age : calcAge1(2001),
-    birthYear : 2001,
-    arrayEmbedded : `${jonas}`,
-    job: "teacher",
-    friends : friends,
-    hasDriversLicense : false,
-    // function expressions can be put inside objects
-    // they will not do anything unless explicitly called
-    // w/o this keyword, need to pass in the value when called
-    // calcAge : function(birthYear){
-    //     return 2037 - birthYear
-    // }
-    // calcAge : function(){
-    //     return 2037 - this.birthYear
-    // }
+const chan = {
+  firstName: "Chan",
+  lastName: "Aung",
+  age: calcAge1(2001),
+  birthYear: 2001,
+  arrayEmbedded: `${jonas}`,
+  job: "teacher",
+  friends: friends,
+  hasDriversLicense: false,
+  // function expressions can be put inside objects
+  // they will not do anything unless explicitly called
+  // w/o this keyword, need to pass in the value when called
+  // calcAge : function(birthYear){
+  //     return 2037 - birthYear
+  // }
+  // calcAge : function(){
+  //     return 2037 - this.birthYear
+  // }
 
-    calcAge : function(){
-        this.age = 2037 - this.birthYear; // creating property for an object from function
-        return this.age;
-    }
-}
+  calcAge: function () {
+    this.age = 2037 - this.birthYear; // creating property for an object from function
+    return this.age;
+  },
+};
 
 // console.log(chan);
 // console.log(chan.lastName);
@@ -144,7 +143,6 @@ const chan ={
 
 // console.log(`${chan.firstName} is a ${chan.calcAge()}-year old ${chan[`job`]} and he has ${chan.hasDriversLicense ? "has" : "does not have"} driver's license.`)
 
-
 // /* Write your code below. Good luck! 🙂 */
 
 // const mark = {
@@ -167,59 +165,58 @@ const chan ={
 //     }
 // }
 
-// console.log(mark.calcBMI() > john.calcBMI() ? `${mark.fullName}'s BMI(${mark.bmi}) is higher than ${john.fullName}'s BMI(${john.bmi})!` : 
+// console.log(mark.calcBMI() > john.calcBMI() ? `${mark.fullName}'s BMI(${mark.bmi}) is higher than ${john.fullName}'s BMI(${john.bmi})!` :
 // `${john.fullName}'s BMI(${john.bmi}) is higher than ${mark.fullName}'s BMI(${mark.bmi})!`);
 
 // for loop
 
 const types = [];
-const ages =[];
-for(let i = 1; i <= 10; i++){
- console.log(`Lifting weights repetition ${i}`);   
+const ages = [];
+for (let i = 1; i <= 10; i++) {
+  console.log(`Lifting weights repetition ${i}`);
 }
 
-for(let i= 0; i <= years.length-1 ; i++){
-    console.log(years[i], typeof years[i]);
-    types.push(typeof years[i]);
+for (let i = 0; i <= years.length - 1; i++) {
+  console.log(years[i], typeof years[i]);
+  types.push(typeof years[i]);
 }
-years.forEach(year => ages.push(2024 - year));
-
+years.forEach((year) => ages.push(2024 - year));
 
 console.log(types);
 console.log(ages);
 
 // continue and break
-const mixedArray = ["ABC", null, 12.3, true, jonas, NaN, "XYZ"]
-mixedArray.forEach(element => console.log(element));
+const mixedArray = ["ABC", null, 12.3, true, jonas, NaN, "XYZ"];
+mixedArray.forEach((element) => console.log(element));
 
-for(let i = 0; i < mixedArray.length; i++){
-    if(typeof mixedArray[i] !== 'string') continue; // continue will exit current loop and check the conditions
-    console.log(mixedArray[i], typeof mixedArray[i]);
+for (let i = 0; i < mixedArray.length; i++) {
+  if (typeof mixedArray[i] !== "string") continue; // continue will exit current loop and check the conditions
+  console.log(mixedArray[i], typeof mixedArray[i]);
 }
 
 // break terminates the whole loop
-for(let i = 0; i < mixedArray.length; i++){
-    if(mixedArray[i] === 12.3) break;
-    console.log(mixedArray[i], typeof mixedArray[i]);
+for (let i = 0; i < mixedArray.length; i++) {
+  if (mixedArray[i] === 12.3) break;
+  console.log(mixedArray[i], typeof mixedArray[i]);
 }
-console.log("TENET Loop")
-for(let i = mixedArray.length - 1; i >= 0; i--){
-    console.log(mixedArray[i], typeof mixedArray[i]);
+console.log("TENET Loop");
+for (let i = mixedArray.length - 1; i >= 0; i--) {
+  console.log(mixedArray[i], typeof mixedArray[i]);
 }
 
-for(let exercise = 1; exercise < 4; exercise++){
-    console.log(`------ Starting exercise ${exercise}`);
-    
-    for(let rep = 1; rep < 6; rep++){
-        console.log(`Exercise ${exercise}:Lifting Weight Peptition ${rep}`);
-    }
+for (let exercise = 1; exercise < 4; exercise++) {
+  console.log(`------ Starting exercise ${exercise}`);
+
+  for (let rep = 1; rep < 6; rep++) {
+    console.log(`Exercise ${exercise}:Lifting Weight Peptition ${rep}`);
+  }
 }
 
 // while loop
 let dice = Math.trunc(Math.random() * 6) + 1;
 console.log(dice);
-while(dice !== 6){
-    console.log(`You rolled a ${dice}`);
-    dice = Math.trunc(Math.random() * 6) + 1;
-    if(dice ===6 ) console.log("Loop is about to end...")
+while (dice !== 6) {
+  console.log(`You rolled a ${dice}`);
+  dice = Math.trunc(Math.random() * 6) + 1;
+  if (dice === 6) console.log("Loop is about to end...");
 }
