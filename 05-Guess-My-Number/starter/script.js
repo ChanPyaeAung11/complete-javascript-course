@@ -27,12 +27,21 @@ function printValue() {
     document.querySelector('.score').textContent = score += 1;
   } else if (guess > number) {
     document.querySelector('.message').textContent = '📈 Too High';
-    score !== 0 ? (score -= 1) : (score = 0);
-    document.querySelector('.score').textContent = score;
+    score--;
+    if (score > 0) {
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.score').textContent = 0;
+      document.querySelector('.message').textContent = 'You lost the game';
+    }
   } else if (guess < number) {
     document.querySelector('.message').textContent = '📉 Too Low';
-    score !== 0 ? (score -= 1) : (score = 0);
-    document.querySelector('.score').textContent = score;
+    if (score <= 1) {
+      document.querySelector('.score').textContent = 0;
+      document.querySelector('.message').textContent = 'You lost the game';
+    } else {
+      document.querySelector('.score').textContent = --score;
+    }
   }
 }
 document.querySelector('.check').addEventListener('click', printValue);
