@@ -21,12 +21,14 @@ let totalScoreForPlayer1 = document.querySelector('#score--1');
 currentScoreForPlayer1.textContent = 0;
 totalScoreForPlayer1.textContent = 0;
 
+diceImg.style.display = 'none';
+
 // logic for roll dice
 dice.addEventListener('click', rollDice);
 
 function rollDice() {
   const num = Math.floor(Math.random() * 6) + 1;
-
+  diceImg.style.display = 'inline';
   let currentScore;
   if (player0.classList.contains('player--active')) {
     currentScore = currentScoreForPlayer0;
