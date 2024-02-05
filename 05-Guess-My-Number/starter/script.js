@@ -27,6 +27,7 @@ function printValue() {
     // if the css porperty has '-' in word, jsut camalCase.
     document.querySelector('body').style.backgroundColor = 'green';
     document.querySelector('.number').style.width = '30rem';
+    document.querySelector('.number').textContent = number;
     if (score > highScore) {
       document.querySelector('.highscore').textContent = highScore = score;
     }
