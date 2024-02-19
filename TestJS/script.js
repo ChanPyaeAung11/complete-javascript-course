@@ -225,8 +225,10 @@
 
 // console.log(`I want to drink ${age >= 18 ? "wine" : "water"}`);
 
+console.log(int3);
 let int1 = 10;
 int2 = 20;
+var int3 = 10;
 
 funcTest();
 console.log(`Hello from the light ${funcTest()}`);
@@ -246,7 +248,7 @@ let arrowFunc = () => {
 console.log(arrowFunc());
 
 console.log(
-  `Hello Darkness, My old friend ${funcTest()} and ${annonFunc()} and ${arrowFunc()}`
+  `Hello Darkness, My old friend ${funcTest()} and ${annonFunc()} and ${arrowFunc()}`,
 );
 
 document.querySelector("#hello").textContent =

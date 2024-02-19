@@ -1,5 +1,3 @@
-'use strict';
-
 // function defined in global scope
 function calcAge(birthYear) {
   // birthYear is only in current scope and accessible within this scop
@@ -104,16 +102,18 @@ console.log(numOfItems === window.numOfItems);
 // value is not static. based on how the function is called. o
 console.log(this);
 
-this.doSth();
+doSth();
 function doSth() {
   console.log(this); // this here is undefined due to strict. if not, global window
 }
+const year = 2001;
 
 // obj's {} does not create a scope.
 const obj1 = {
   firstName: 'name',
   year: 1998,
   age1: year => {
+    // => does not have own 'this' keyword. it will take lexical this, which is the parent's this
     console.log(this); // this = windows here
     return this.year; // will be undefined
   },
@@ -128,7 +128,7 @@ const obj1 = {
     // isMillenial(); // since just a normal method call, this = undefined
 
     const isMillenial = () => {
-      console.log(this);
+      console.log(this, 'isMillenial()');
       console.log(this.year >= 1981 && this.year <= 1996);
     };
     isMillenial();
@@ -150,3 +150,19 @@ console.log(obj1.age3(2000));
 console.log(obj1.greet());
 
 console.log(obj1.lastName); // if we access an element from obj and that element doesn't exist, gets undefined
+
+// objects argument
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addExpr(2, 5);
+addExpr();
+
+var addArrow = (a, b) => {
+  console.log(arguments);
+  return a + b;
+};
+addArrow(2, 5);
+
+// no longer using arguments keyword anymore.
