@@ -97,3 +97,56 @@ function deleteShoppingCart() {
 // vars declared using var are all in window - global object in js
 console.log(x === window.x);
 console.log(numOfItems === window.numOfItems);
+
+// this keyword
+// points to the object that is calling the method. not where the method exists
+// created for each execution context. so, value is only assigned when a function is called
+// value is not static. based on how the function is called. o
+console.log(this);
+
+this.doSth();
+function doSth() {
+  console.log(this); // this here is undefined due to strict. if not, global window
+}
+
+// obj's {} does not create a scope.
+const obj1 = {
+  firstName: 'name',
+  year: 1998,
+  age1: year => {
+    console.log(this); // this = windows here
+    return this.year; // will be undefined
+  },
+  age2: function (year) {
+    console.log(this); // this = obj1
+
+    // const self = this;
+    // const isMillenial = function () {
+    //   console.log(self);
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    // };
+    // isMillenial(); // since just a normal method call, this = undefined
+
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillenial();
+    return year - this.year;
+  },
+  age3: function calcAge(year) {
+    console.log(this); // this = obj1
+    return year - this.year;
+  },
+  greet: () => {
+    console.log(this);
+    console.log(`Hey ${this.firstName}`); // will take firstName from window
+  },
+};
+
+console.log(obj1.age1(2000));
+console.log(obj1.age2(2000));
+console.log(obj1.age3(2000));
+console.log(obj1.greet());
+
+console.log(obj1.lastName); // if we access an element from obj and that element doesn't exist, gets undefined
