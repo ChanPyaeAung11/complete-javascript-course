@@ -160,9 +160,41 @@ addExpr(2, 5);
 addExpr();
 
 var addArrow = (a, b) => {
-  console.log(arguments);
+  //console.log(arguments); // RefError: arguments is not.
   return a + b;
 };
 addArrow(2, 5);
+// no longer using arguments keyword anymore as of late.
 
-// no longer using arguments keyword anymore.
+let lastName = 'Willians';
+let oldLastName = lastName;
+lastName = 'Davis';
+console.log(lastName, oldLastName);
+
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Will',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+
+let marriedJessica = jessica;
+marriedJessica.lastName = 'Atreidies';
+console.log('Before Marriage', jessica);
+console.log('After Marriage', marriedJessica);
+
+marriedJessica = {};
+console.log(marriedJessica);
+
+//copying objects
+// assign only does shallow copy.
+// if there is another obj inside obj, nested array will be same as object
+const copyJessica = Object.assign({}, jessica);
+copyJessica.lastName = 'Davis';
+console.log(copyJessica);
+console.log('OG Jess', jessica);
+
+copyJessica.family.push('Mary');
+copyJessica.family.push('John');
+console.log(copyJessica);
+console.log('OG Jess', jessica);
