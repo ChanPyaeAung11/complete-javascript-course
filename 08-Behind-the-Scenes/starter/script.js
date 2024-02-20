@@ -166,6 +166,7 @@ var addArrow = (a, b) => {
 addArrow(2, 5);
 // no longer using arguments keyword anymore as of late.
 
+// primitives and objects
 let lastName = 'Willians';
 let oldLastName = lastName;
 lastName = 'Davis';

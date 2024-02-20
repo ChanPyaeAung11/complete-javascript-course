@@ -29,9 +29,27 @@ const restaurant = {
   order: function (index1, index2) {
     return [this.starterMenu[index1], this.starterMenu[index2]];
   },
+
+  // arrays and objs can be destrucuted at the paramter themselves
+  orderComesInArray: function ([el1, el2, el3, el4]) {
+    // const [el1, el2, el3] = arr;
+    console.log(el1, el2, el3, el4);
+  },
+  orderDelivery: function ({
+    time = '00:00',
+    address = 'Earth',
+    mainIndex = '1',
+    starterIndex = '1',
+  }) {
+    // destructuring can be done inside block or directly inside parameter
+    // const { time, address, mainIndex, starterIndex } = obj;
+    console.log(
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`,
+    );
+  },
 };
 
-// normal way of getting elements from array or object
+// normal way of getting elements from array
 const menu1 = restaurant.mainMenu[0];
 const menu2 = restaurant.mainMenu[1];
 const menu3 = restaurant.mainMenu[2];
@@ -67,3 +85,48 @@ console.log(j, f, k);
 // default values assigned. in case not know the array
 const [m = null, u = null, c = null] = [5, 6];
 console.log(m, u, c);
+
+// destructuring objects
+const { name, openingHours } = restaurant;
+console.log(name, openingHours);
+
+// chging name of variables from default object's ones
+// creating new vars with const
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+
+console.log(restaurantName, hours, tags);
+
+// default values
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters);
+
+// mutating variables
+let a = 111;
+let b = 999;
+const obj = { x: 23, y: 7, z: 14 };
+
+// when code line started with {, js expects it to be a block. as such, need()
+({ x: a, y: b } = obj);
+console.log(a, b);
+
+// nested objects
+// able to access nested object w/o specifying the parent object in both assignment and assignee
+const {
+  sat: { open: oT, close: cT },
+} = openingHours;
+console.log(oT, cT);
+
+restaurant.orderDelivery({
+  time: '22:30',
+  address: 'Via del Sole, 21',
+  mainIndex: 2,
+  starterIndex: 2,
+});
+
+restaurant.orderDelivery({});
+
+restaurant.orderComesInArray(['22:30', 'Via del Sole, 21', 2, 3]);
