@@ -47,6 +47,9 @@ const restaurant = {
       `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`,
     );
   },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3} `);
+  },
 };
 
 // normal way of getting elements from array
@@ -130,3 +133,55 @@ restaurant.orderDelivery({
 restaurant.orderDelivery({});
 
 restaurant.orderComesInArray(['22:30', 'Via del Sole, 21', 2, 3]);
+
+// spread operators ...
+// taking elements out and putting in somewhere. no vars were created
+// only use in places where values can be seperated by commas
+
+const arr = [7, 8, 9];
+const badNewArray = [1, 2, arr[0], arr[1], arr[2]];
+console.log(badNewArray);
+
+const goodArr = [1, 2, ...arr];
+console.log(goodArr);
+
+console.log(...goodArr);
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci', 'Escargot'];
+console.log(newMenu);
+
+restaurant.mainMenu = [...restaurant.mainMenu, 'Gnocci', 'Escargot'];
+console.log(restaurant.mainMenu);
+
+// copy array (only shallow cppy)
+const mainMenuCopy = [...restaurant.mainMenu];
+
+const superMenu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(superMenu);
+
+// can be used on Iteratbles : arrays, strings, maps, sets, NO obj
+// only used in places where they are expecting multiple values
+const str = 'Jones';
+const letters = [...str, '', 'S.'];
+console.log(letters);
+console.log(...str);
+
+// console.log(`${...str} ipso facto`);
+
+// calling functions with spread
+// const ingredients = [
+//   prompt("Let's make pasta! Ingredient 1?"),
+//   prompt('Ingredient 2?'),
+//   prompt('Ingredient 3?'),
+// ];
+//restaurant.orderPasta(...ingredients);
+
+// since ES2018, objets also work.
+
+const newRestaurant = { foundedIn: 1998, ...restaurant, founder: 'Luiz' };
+console.log(newRestaurant);
+
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = "Alfredo's Place";
+console.log(newRestaurant.name);
+console.log(restaurantCopy.name);
