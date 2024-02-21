@@ -44,11 +44,15 @@ const restaurant = {
     // destructuring can be done inside block or directly inside parameter
     // const { time, address, mainIndex, starterIndex } = obj;
     console.log(
-      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`,
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
   orderPasta: function (ing1, ing2, ing3) {
     console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3} `);
+  },
+  orderPizza: function (mainIngredient, ...otherIng) {
+    console.log(mainIngredient);
+    console.log(otherIng);
   },
 };
 
@@ -185,3 +189,46 @@ const restaurantCopy = { ...restaurant };
 restaurantCopy.name = "Alfredo's Place";
 console.log(newRestaurant.name);
 console.log(restaurantCopy.name);
+
+// REST pattern
+// has same indicator as spread ...
+// takes elements and combine them into array
+// must be the last element and only 1 rest in any destructuring assignment
+
+// SPREAD has ... on right side of =
+const spreadArr = [1, 2, ...[3, 4]];
+
+// REST has ... on the left side of =
+const [int1, int2, ...others] = [1, 2, 3, 4, 5];
+console.log(others);
+
+const [pizza, , rissoto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(otherFood);
+
+const { name: shopName, categories: cat, ...remains } = restaurant;
+console.log(shopName, cat, remains);
+
+const { sat, ...otherTimes } = openingHours;
+console.log(sat, otherTimes);
+
+// use in functions
+const restFunction = function (...numbers) {
+  let sum = 0;
+
+  numbers.forEach(i => (sum += i));
+  return sum;
+};
+
+console.log(restFunction(1, 2, 3, 4, 5));
+restFunction(1);
+
+// use case and rest
+const xMen = [23, 5, 7];
+console.log(restFunction(...xMen));
+
+restaurant.orderPizza('Cheese', 'Tamato', 'Ball');
+restaurant.orderPizza('Meaat', 'Vege');
