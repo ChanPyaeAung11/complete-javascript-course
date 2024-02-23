@@ -232,3 +232,25 @@ console.log(restFunction(...xMen));
 
 restaurant.orderPizza('Cheese', 'Tamato', 'Ball');
 restaurant.orderPizza('Meaat', 'Vege');
+
+// Short-circuiting
+// && || operators can take in and return any value
+
+// OR will return first truthy value
+// if No truthy value in the comparision statement, return last one
+console.log(`------ || ------`);
+console.log(5 || '');
+console.log(0 || 'String');
+console.log(0 || '');
+
+// prac use
+console.log(restaurant.dontExist ? restaurant.dontExist : 10);
+
+console.log(restaurant.dontExist || 10);
+
+// AND will return first falsy value.
+// if there is no falsy,
+console.log(`------ && ------`);
+console.log(5 && '');
+console.log(0 && 'String');
+console.log('Some' && 'Thing');
