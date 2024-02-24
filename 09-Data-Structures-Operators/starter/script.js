@@ -44,7 +44,7 @@ const restaurant = {
     // destructuring can be done inside block or directly inside parameter
     // const { time, address, mainIndex, starterIndex } = obj;
     console.log(
-      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`,
     );
   },
   orderPasta: function (ing1, ing2, ing3) {
@@ -254,3 +254,52 @@ console.log(`------ && ------`);
 console.log(5 && '');
 console.log(0 && 'String');
 console.log('Some' && 'Thing');
+console.log('Hello' && 23 && null && 'jonas');
+
+// prac use
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushrooms', 'spinach');
+}
+// execute function if function returns truthy value
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+
+console.log(restaurant.orderPizza);
+
+// nullish coalecing operator (??)
+// nullish: null, undefined, not include 0 or ''
+
+// 0 does not equal to not exist such as null or undefined.
+restaurant.dontExist = 0;
+// with OR short circuit, it will take 0 as falsy value
+console.log(restaurant.dontExist || 10);
+//using nullish
+console.log(restaurant.dontExist ?? 10);
+
+const rest1 = {
+  name: 'Capri',
+  numGuests: 0,
+};
+
+const rest2 = {
+  name: 'Piazza',
+  owner: `Chan`,
+};
+// set default number of guests for all restaurant objs
+
+// using short circuiting
+//rest1.numGuests = rest1.numGuests || 5; // in this way, undefined will get assigned
+//rest2.numGuests || (rest2.numGuests = 5); // in this way, it wont
+
+// OR assignment operator
+//rest1.numGuests ||= 5;
+rest2.numGuests ||= 5;
+
+// nullish assignment
+rest1.numGuests ??= 10;
+
+// rest1.owner && (rest1.owner = `Anon`);
+// rest2.owner && (rest2.owner = `Anon`);
+rest1.owner &&= `<ANON>`;
+rest2.owner &&= `<ANON>`;
+console.log(rest1);
+console.log(rest2);
