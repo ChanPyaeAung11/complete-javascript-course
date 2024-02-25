@@ -124,14 +124,17 @@ console.log(a, b);
 // able to access nested object w/o specifying the parent object in both assignment and assignee
 const {
   sat: { open: oT, close: cT },
+  fri: { open: friOT, close: friCT },
 } = openingHours;
 console.log(oT, cT);
+console.log(friOT, friCT);
 
 restaurant.orderDelivery({
   time: '22:30',
   address: 'Via del Sole, 21',
   mainIndex: 2,
   starterIndex: 2,
+  sthDark: 3,
 });
 
 restaurant.orderDelivery({});
@@ -199,7 +202,7 @@ console.log(restaurantCopy.name);
 const spreadArr = [1, 2, ...[3, 4]];
 
 // REST has ... on the left side of =
-const [int1, int2, ...others] = [1, 2, 3, 4, 5];
+const { int1, int2, ...others } = [1, 2, 6, 4, 5];
 console.log(others);
 
 const [pizza, , rissoto, ...otherFood] = [
@@ -287,13 +290,13 @@ const rest2 = {
 // set default number of guests for all restaurant objs
 
 // using short circuiting
-//rest1.numGuests = rest1.numGuests || 5; // in this way, undefined will get assigned
+//rest1.numGuests = rest1.numGuests || 5; // in this way, 0 will get assigned
 //rest2.numGuests || (rest2.numGuests = 5); // in this way, it wont
 
 // OR assignment operator
 //rest1.numGuests ||= 5;
 rest2.numGuests ||= 5;
-
+rest2.name &&= `Dick`;
 // nullish assignment
 rest1.numGuests ??= 10;
 
@@ -303,3 +306,108 @@ rest1.owner &&= `<ANON>`;
 rest2.owner &&= `<ANON>`;
 console.log(rest1);
 console.log(rest2);
+
+// Coding Challenge 1
+/*
+We're building a football betting app (soccer for my American friends 😅)!
+
+Suppose we get data from a web service about a certain game (below). In this challenge we're gonna work with the data. So here are your tasks:
+
+1. Create one player array for each team (variables 'players1' and 'players2')
+2. The first player in any player array is the goalkeeper and the others are field players.
+For Bayern Munich (team 1) create one variable ('gk') with the goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 field players
+3. Create an array 'allPlayers' containing all players of both teams (22 players)
+4. During the game, Bayern Munich (team 1) used 3 substitute players.
+So create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
+5. Based on the game.odds object, create one variable for each odd (called 'team1', 'draw' and 'team2')
+6. Write a function ('printGoals') that receives an arbitrary number of player names (NOT an array)
+and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
+7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, WITHOUT using an if/else statement or the ternary operator.
+
+TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Then, call the function again with players from game.scored
+
+GOOD LUCK 😀
+*/
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
+};
+
+const players1 = [];
+const players2 = [];
+
+const [gkBayern, ...fieldPlayersBayern] = game.players[0];
+const [gkDortmund, ...fieldPlayersDortmund] = game.players[1];
+
+players1.push(gkBayern);
+players1.push(...fieldPlayersBayern);
+// players1.push(...game.players[0]);
+players2.push(gkDortmund);
+players2.push(...fieldPlayersDortmund);
+// players2.push(...game.players[1]);
+
+const allPlayers = [...players1, ...players2];
+console.log(players1);
+console.log(players2);
+console.log(allPlayers);
+
+const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
+
+console.log(team1, draw, team2);
+
+function printGoals(...playerNames) {
+  for (let i = 0; i < playerNames.length; i++) {
+    console.log(playerNames[i]);
+  }
+  console.log(`Num. of goals scored in total: ` + playerNames.length);
+}
+
+// console.log(...fieldPlayersBayern);
+// printGoals(...fieldPlayersBayern);
+// printGoals('Chan', 'Pyae', 'Aung');
+printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
+printGoals(...game.scored);
+
+team1 < team2 || console.log('Team 2 is more likely to win');
+team1 > team2 || console.log('Team 1 is more likely to win');
