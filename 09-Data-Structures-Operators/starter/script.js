@@ -3,7 +3,23 @@
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+const days = [`mon`, `tues`, `wed`, `thu`, `fri`, `sat`, `sun`];
 
+const openingHours = {
+  // calc the key name instead of static
+  [days[4]]: {
+    open: 1,
+    close: 22,
+  },
+  [days[5]]: {
+    open: 1,
+    close: 23,
+  },
+  [`day-${2 + 4}`]: {
+    open: 10, // Open 24 hours
+    close: 24,
+  },
+};
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -11,31 +27,20 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
+  // with ES6, if there is 1 object to be embedded from outside, just call varName
+  // will ref the obj. so, chges made will be same
+  openingHours,
   order: function (index1, index2) {
     return [this.starterMenu[index1], this.starterMenu[index2]];
   },
 
   // arrays and objs can be destrucuted at the paramter themselves
-  orderComesInArray: function ([el1, el2, el3, el4]) {
+  orderComesInArray([el1, el2, el3, el4]) {
     // const [el1, el2, el3] = arr;
     console.log(el1, el2, el3, el4);
   },
-  orderDelivery: function ({
+
+  orderDelivery({
     time = '00:00',
     address = 'Earth',
     mainIndex = '1',
@@ -44,7 +49,7 @@ const restaurant = {
     // destructuring can be done inside block or directly inside parameter
     // const { time, address, mainIndex, starterIndex } = obj;
     console.log(
-      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`,
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
   orderPasta: function (ing1, ing2, ing3) {
@@ -55,6 +60,9 @@ const restaurant = {
     console.log(otherIng);
   },
 };
+openingHours.fri.open = 99999;
+console.log(restaurant.openingHours);
+console.log(openingHours);
 
 // normal way of getting elements from array
 const menu1 = restaurant.mainMenu[0];
@@ -94,8 +102,8 @@ const [m = null, u = null, c = null] = [5, 6];
 console.log(m, u, c);
 
 // destructuring objects
-const { name, openingHours } = restaurant;
-console.log(name, openingHours);
+const { name, openTime } = restaurant;
+console.log(name, openTime);
 
 // chging name of variables from default object's ones
 // creating new vars with const
@@ -411,3 +419,126 @@ printGoals(...game.scored);
 
 team1 < team2 || console.log('Team 2 is more likely to win');
 team1 > team2 || console.log('Team 1 is more likely to win');
+
+// looping arrays using for-of
+
+for (const item of superMenu) console.log(item);
+
+// 2 get index of element
+for (const [i, j] of superMenu.entries()) {
+  // array which contains index and element
+  console.log(`${i + 1}: ${j}`);
+}
+
+console.log(...superMenu.entries());
+
+// object literal
+
+// optional chaining
+// if we try to access nested objects, `undefined` is given for unexisting keys.
+// if keys of unexisting keys are accessed, there is TypeError.
+//console.log(restaurant.openingHours.mon.open);
+
+// use if to error check keys b4 which can get inflated
+if (restaurant.openingHours && restaurant.openingHours.mon)
+  console.log(restaurant.openingHours.mon.open);
+
+// only undefined and null will be flagged
+console.log(restaurant?.openingHours?.mon?.open);
+
+// objects
+for (const day of days) {
+  const open = restaurant.openingHours[day]?.open ?? `closed`;
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+// can access objects with []. if property name, need to use ``
+// if accessing with variable, can use [varName] only
+console.log(openingHours[`sat`]);
+
+// methods
+console.log(restaurant.order?.(0, 1) ?? `Method does not exist`);
+console.log(restaurant.fakeOrder?.(0, 1) ?? `Method does not exist`);
+
+// arrays
+const users = [{ name: `Jonas`, email: `jonas@hello.com` }];
+console.log(users[0]?.email ?? `fssdfs`);
+
+console.log(`-------Looping Objs--------`);
+// looping objects
+
+// LOOPING keys
+const openKey = Object.keys(openingHours); // becomes an array
+//console.log(openKey);
+for (const i of openKey) {
+  console.log(i);
+}
+// LOOPING values
+const closeValue = Object.values(openingHours);
+for (const i of closeValue) console.log(i);
+// LOOPING objects
+const entries = Object.entries(openingHours);
+console.log(entries);
+for (const [i, { open: o, close: c }] of entries) console.log(i, o, c);
+
+///////////////////////////////////////
+// Coding Challenge #2
+
+/* 
+Let's continue with our football betting app!
+
+1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+      Odd of victory Bayern Munich: 1.33
+      Odd of draw: 3.25
+      Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+
+BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+      {
+        Gnarby: 1,
+        Hummels: 1,
+        Lewandowski: 2
+      }
+
+GOOD LUCK 😀
+*/
+
+const scoreInEntries = game.scored.entries();
+console.log(scoreInEntries);
+for (const [i, j] of game.scored.entries()) console.log(`Goal ${i + 1}: ${j}`);
+
+let total = 0;
+const oddValues = Object.values(game.odds);
+console.log(oddValues);
+for (const odd of oddValues) {
+  total += odd;
+}
+const avg = total / oddValues.length;
+console.log(avg);
+
+const oddInEntries = Object.entries(game.odds);
+for (const [i, j] of oddInEntries) {
+  console.log(`Odd of ${i !== 'x' ? `victory ` + game[i] : `draw`}: ${j}`);
+}
+
+let scorers = {};
+console.log(...game.scored.entries());
+// terrible way
+// for (const [i, k] of game.scored.entries()) {
+//   let goal = 0;
+
+//   for (const j of game.scored) {
+//     if (game.scored[i] === j) {
+//       goal++;
+//     }
+//   }
+//   scorers[k] = goal;
+// }
+
+for (const player of game.scored) {
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+}
+
+console.log(scorers);
