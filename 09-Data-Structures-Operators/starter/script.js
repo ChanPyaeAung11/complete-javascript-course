@@ -542,3 +542,30 @@ for (const player of game.scored) {
 }
 
 console.log(scorers);
+
+// Sets
+// only contains unique values
+// iterables - can loop over them.
+// no index or order. Cannot retrieve them.
+
+const ordersSet = new Set([1, 1, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9, 10]);
+
+console.log(ordersSet.size);
+console.log(ordersSet.has(-1));
+ordersSet.add(69);
+ordersSet.add(69); // only 1 69 will be added
+
+ordersSet.delete(10);
+// ordersSet.clear();
+console.log(ordersSet);
+
+console.log(new Set(`Jonas`));
+
+// make a unique array by chging to set to array
+const staff = [`Waiter`, `Chef`, `Waiter`, `Manager`, `Chef`, `Waiter`];
+
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique);
+
+// to know letters included in a string
+console.log(new Set('Chan Pyae Aung').size);
