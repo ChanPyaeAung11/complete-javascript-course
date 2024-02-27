@@ -547,6 +547,7 @@ console.log(scorers);
 // only contains unique values
 // iterables - can loop over them.
 // no index or order. Cannot retrieve them.
+// can put in any iterables to be a set (MapIterator, array, String)
 
 const ordersSet = new Set([1, 1, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9, 10]);
 
@@ -569,3 +570,135 @@ console.log(staffUnique);
 
 // to know letters included in a string
 console.log(new Set('Chan Pyae Aung').size);
+
+//Maps
+// diff between map and object is map can have keys with diff data types compared to strings in object
+
+const rest = new Map();
+rest.set('name', 'Cheetos');
+rest.set(1, `Italy`);
+console.log(rest.set(2, `Portugal`));
+
+// since set returns the maps, can chain settings
+rest
+  .set(`categories`, ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set(`open`, 11)
+  .set(`close`, 23)
+  .set(true, `We are open :D`)
+  .set(false, `We are closed :(`);
+
+console.log(rest.get(`name`));
+// same as obj. if key does not exist, undefined
+console.log(rest.get(`name12`));
+
+// able to pass in expressions
+const time = 21;
+const weSee = rest.get(time > rest.get(`open`) && time < rest.get(`close`));
+console.log(weSee);
+
+console.log(rest.has(`categories`)); // true or false
+rest.delete(2);
+console.log(rest);
+console.log(rest.size);
+
+const arr2 = [1, 2];
+rest.set(arr2, `Test`);
+console.log(rest);
+console.log(rest.get(arr2));
+
+rest.set(document.querySelector(`h1`), `Heading`);
+console.log(rest);
+
+// populating a map w/o set()
+const questions = new Map([
+  [`question`, `What is the bet programming lang in the world`],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, `JS`],
+  [`correct`, 2],
+  [true, `Correct`],
+  [false, `Try again`],
+]);
+
+console.log(questions);
+console.log(questions.size);
+
+// Object to maps
+console.log(Object.entries(openingHours)); // this produces the same format as making a map above.
+const hoursMap = new Map(Object.entries(openingHours));
+
+console.log(hoursMap);
+
+// Iteration
+// when looped, each element is an array.
+console.log(questions.get(`question`));
+for (const [k, v] of questions) {
+  if (typeof k === `number`) {
+    console.log(`${k} : ${v}`);
+  }
+}
+
+//const userAnswer = Number(prompt('Answer plz'));
+//console.log(questions.get(userAnswer === questions.get(`correct`)));
+
+// map to array
+// .keys() and .values() are map's methods
+console.log([...questions]);
+console.log([...questions.entries()]);
+console.log([...questions.keys()]);
+console.log([...questions.values()]);
+
+// Coding Challenge #3
+
+/* 
+Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+
+1. Create an array 'events' of the different game events that happened (no duplicates)
+2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+      [FIRST HALF] 17: ⚽️ GOAL
+
+GOOD LUCK 😀
+*/
+
+const gameEvents = new Map([
+  [17, '⚽️ GOAL'],
+  [36, '🔁 Substitution'],
+  [47, '⚽️ GOAL'],
+  [61, '🔁 Substitution'],
+  [64, '🔶 Yellow card'],
+  [69, '🔴 Red card'],
+  [70, '🔁 Substitution'],
+  [72, '🔁 Substitution'],
+  [76, '⚽️ GOAL'],
+  [80, '⚽️ GOAL'],
+  [92, '🔶 Yellow card'],
+]);
+
+console.log([...new Set(gameEvents.values())]);
+
+gameEvents.delete(64);
+console.log(gameEvents);
+
+// let minsInterval = [];
+// for (let a = gameEvents.size - 1; a > 0; a--) {
+//   minsInterval.push([...gameEvents.keys()][a] - [...gameEvents.keys()][a - 1]);
+// }
+// console.log(minsInterval);
+// let minSubtracted = 0;
+// for (const ele of minsInterval) {
+//   minSubtracted += ele;
+// }
+// console.log(minSubtracted / gameEvents.size);
+
+const fullTimeGame = [...gameEvents.keys()].pop();
+console.log(
+  `An event happened, on average, every ${
+    fullTimeGame / gameEvents.size
+  } minutes`
+);
+
+for (const [j, k] of gameEvents) {
+  console.log(`[${j <= 45 ? `FIRST` : `SECOND`} HALF] ${j} : ${k}`);
+}
