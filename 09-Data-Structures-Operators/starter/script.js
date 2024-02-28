@@ -702,3 +702,53 @@ console.log(
 for (const [j, k] of gameEvents) {
   console.log(`[${j <= 45 ? `FIRST` : `SECOND`} HALF] ${j} : ${k}`);
 }
+
+// working with strings
+// strings are immutable. chges made are actually new strings
+// when methods are called, js converts string primitive to string object done, perform operations, then reverted back to primitive
+// this is called boxing
+
+console.log(typeof new String(`jonas`));
+console.log(typeof new String(`jonas`).slice(1)); // even string objects get turned into primitives after operations
+// const flights =
+//   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+const airline = `TAP Air Portugal`;
+const plane = `A320`;
+
+console.log(plane[2]);
+console.log(plane[3]);
+console.log(`B373`[0]);
+console.log(airline.length);
+
+console.log(airline.indexOf(`r`));
+console.log(airline.lastIndexOf(`r`));
+console.log(airline.indexOf(`Portugal`));
+
+// slice method
+console.log(airline.slice(4)); // sub-string
+console.log(airline.slice(4, 7));
+
+console.log(airline.slice(0, airline.indexOf(` `)));
+console.log(airline.slice(airline.lastIndexOf(` `) + 1));
+
+console.log(airline.slice(-2));
+console.log(airline.slice(0, -1));
+console.log(airline.slice(-1)); // get the last element
+
+const checkMiddleSeat = function (seat) {
+  // this will short circuit the OR operator. since first value can come out as num, it will b truthy
+  //console.log((seat.indexOf(`E`) || seat.indexOf(`B`)) != -1);
+
+  // B and E are middle
+  if ((seat.indexOf(`B`) != -1 || seat.indexOf(`E`)) != -1) {
+    console.log(`This is the middle seat`);
+  } else {
+    console.log(`You are lucky`);
+  }
+};
+
+checkMiddleSeat(`11B`);
+checkMiddleSeat(`12A`);
+checkMiddleSeat(`13C`);
+checkMiddleSeat(`15E`);
