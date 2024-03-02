@@ -49,7 +49,7 @@ const restaurant = {
     // destructuring can be done inside block or directly inside parameter
     // const { time, address, mainIndex, starterIndex } = obj;
     console.log(
-      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`,
     );
   },
   orderPasta: function (ing1, ing2, ing3) {
@@ -484,7 +484,7 @@ for (const [i, { open: o, close: c }] of entries) console.log(i, o, c);
 ///////////////////////////////////////
 // Coding Challenge #2
 
-/* 
+/*
 Let's continue with our football betting app!
 
 1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
@@ -650,7 +650,7 @@ console.log([...questions.values()]);
 
 // Coding Challenge #3
 
-/* 
+/*
 Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
 
 1. Create an array 'events' of the different game events that happened (no duplicates)
@@ -696,7 +696,7 @@ const fullTimeGame = [...gameEvents.keys()].pop();
 console.log(
   `An event happened, on average, every ${
     fullTimeGame / gameEvents.size
-  } minutes`
+  } minutes`,
 );
 
 for (const [j, k] of gameEvents) {
@@ -705,7 +705,7 @@ for (const [j, k] of gameEvents) {
 
 // working with strings
 // strings are immutable. chges made are actually new strings
-// when methods are called, js converts string primitive to string object done, perform operations, then reverted back to primitive
+// when methods are called, js converts string primitive to string object, perform operations, then reverted back to primitive
 // this is called boxing
 
 console.log(typeof new String(`jonas`));
@@ -752,3 +752,54 @@ checkMiddleSeat(`11B`);
 checkMiddleSeat(`12A`);
 checkMiddleSeat(`13C`);
 checkMiddleSeat(`15E`);
+
+console.log(airline.toLowerCase());
+console.log(`chan`.toUpperCase());
+
+// fix capitalization in name
+const passenger = `jOnAs`; // chg to Jonas
+console.log(correctCapitalizationOfStrings(passenger));
+
+function correctCapitalizationOfStrings(str) {
+  const strCorrect = str[0].toUpperCase() + str.slice(1).toLowerCase();
+  return strCorrect;
+}
+
+// comparing emails
+const email = `hello@chan.com`;
+const userInputEmail = `  heLlo@chaN.com \n`;
+
+console.log(userInputEmail.toLowerCase().trim());
+
+// replacing
+const priceGB = `289,97E`;
+const priceUS = priceGB.replace(`E`, `$`).replace(`,`, `.`);
+console.log(priceUS);
+
+const annnouncement = `All passengers come to boarding door 23. Boarding door 23`;
+
+console.log(annnouncement.replace(`door`, `gate`)); // only replaces first occurance
+
+console.log(annnouncement.replace(/door/g, `gate`)); // with regex, it replaces all occurances
+
+// booleans
+const plane1 = `Airbus A320neo`;
+console.log(plane1.includes(`A320`));
+console.log(plane1.includes(`B`)); // cas-sensitive
+console.log(plane1.startsWith(`Air`));
+
+if (plane1.startsWith(`Airbus`) && plane1.endsWith(`neo`)) {
+  console.log(`Part of th new AIRBUS family`);
+}
+
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+  if (baggage.includes(`knife`) || baggage.includes(`gun`)) {
+    console.log(`you are NOT allowed on board`);
+  } else {
+    console.log(`Welcome Aboard`);
+  }
+};
+checkBaggage(`I have a laptop, some Food and a pocket Knife`);
+checkBaggage(`Socks AND Camera`);
+checkBaggage(`Got some snacks and a gun for protection`);
