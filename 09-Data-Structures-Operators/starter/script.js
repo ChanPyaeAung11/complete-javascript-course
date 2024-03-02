@@ -1,8 +1,8 @@
 'use strict';
 
 // Data needed for a later exercise
-const flights =
-  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+// const flights =
+//   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 const days = [`mon`, `tues`, `wed`, `thu`, `fri`, `sat`, `sun`];
 
 const openingHours = {
@@ -710,8 +710,6 @@ for (const [j, k] of gameEvents) {
 
 console.log(typeof new String(`jonas`));
 console.log(typeof new String(`jonas`).slice(1)); // even string objects get turned into primitives after operations
-// const flights =
-//   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 const airline = `TAP Air Portugal`;
 const plane = `A320`;
@@ -928,4 +926,37 @@ function convertToCamelCase(emojiCount, string, longestString) {
     finalString.join(``).padEnd(longestString + 5, ` `) +
       `${`✅`.repeat(emojiCount + 1)}`,
   );
+}
+
+const flights = `_Delayed_Departure;fao93766109;txl2133758440;11:25
++_Arrival;bru0943384722;fao93766109;11:45
++_Delayed_Arrival;hel7439299980;fao93766109;12:05
++_Departure;fao93766109;lis2323639855;12:30`;
+
+// 🔴 Delayed Departure from FAO to TXL (11h25)
+//              Arrival from BRU to FAO (11h45)
+//   🔴 Delayed Arrival from HEL to FAO (12h05)
+//            Departure from FAO to LIS (12h30)
+
+const flightArray = flights.split(`\n+`);
+
+const getCode = string => string.slice(0, 3).toUpperCase();
+
+const finalStrings = [];
+for (const f of flightArray) {
+  const eachFlight = f.split(`;`);
+  const delayOrNot = eachFlight[0].replace(/_/g, ` `).trim();
+
+  const finalString = `${delayOrNot.includes(`Delayed`) ? `🔴` : ``} ${delayOrNot} from ${getCode(eachFlight[1])} to ${getCode(eachFlight[2])} (${eachFlight[3].replace(`:`, `h`)})`;
+  finalStrings.push(finalString);
+}
+
+let longestLength = 0;
+for (const f of finalStrings) {
+  longestLength < f.length && (longestLength = f.length); // goes in if true
+  //longestLength > f.length || (longestLength = f.length); // goes in if false
+}
+console.log(longestLength);
+for (const f of finalStrings) {
+  console.log(f.padStart(longestLength)); // padStart/End by default comes with empty space ` `
 }
