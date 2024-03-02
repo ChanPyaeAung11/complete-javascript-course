@@ -803,3 +803,129 @@ const checkBaggage = function (items) {
 checkBaggage(`I have a laptop, some Food and a pocket Knife`);
 checkBaggage(`Socks AND Camera`);
 checkBaggage(`Got some snacks and a gun for protection`);
+
+// split method
+console.log(`a+very+nice+string`.split(`+`));
+console.log(`Chan Aung`.split(` `)); // if no argument, the whole string becomes 1 element
+
+const [firstNama, lastName] = `Chan Aung`.split(` `);
+
+// join method
+const arrOfNames = [`Mr`, firstNama, lastName.toUpperCase()];
+const newName = arrOfNames.join(` `); // w/o argument, it adds in `, ` automatically
+console.log(newName);
+
+const capitalizeName = function (name) {
+  const names = name.split(` `);
+  const finalNames = [];
+  for (const n of names) {
+    // method 1
+    // finalNames.push(n[0].toUpperCase() + n.slice(1));
+    // method 2
+    finalNames.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(finalNames.join(` `));
+};
+
+capitalizeName(`Jessica ann smith Davis`);
+capitalizeName(`Paul Maudib Atredies`);
+
+// padding strings
+console.log(firstNama.padStart(25, `+`).padEnd(35, `-`));
+
+const maskCreditCard = function (number) {
+  const str = number + ``; // converting to string
+  const last = str.slice(-4);
+  console.log(last.padStart(16, `*`));
+};
+
+maskCreditCard(1234567812345678);
+
+//repeat strings
+const message2 = `bad weather... ALL departures Delayed...`;
+console.log(message2.repeat(5));
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${`✈️`.repeat(n)}`);
+};
+
+planesInLine(5);
+
+/*
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable
+  calculate_AGE
+delayed_departure
+delayed_FL5_2_HELL
+jonas_SCH
+Chan_Pyae_aUNG
+Cool_Chan_Pyae_aUNGASDasdfsaf
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+document.querySelector('textarea').value = `underscore_case
+ first_name
+Some_Variable
+  calculate_AGE
+delayed_departure
+delayed_FL5_2_HELL
+jonas_SCH
+Chan_Pyae_aUNG
+Cool_Chan_Pyae_aUNGASDasdfsaf`;
+document.querySelector('button').addEventListener('click', function () {
+  console.log(document.querySelector(`textarea`).value);
+  const sthArray = document.querySelector(`textarea`).value.split(`\n`);
+  console.log(sthArray);
+  let longestString = 0;
+  for (const j of sthArray) {
+    longestString > j.length || (longestString = j.length);
+  }
+  console.log(longestString);
+  for (const [i, s] of sthArray.entries()) {
+    convertToCamelCase(i, s, longestString);
+  }
+  //convertToCamelCase(document.querySelector(`textarea`).value);
+});
+function convertToCamelCase(emojiCount, string, longestString) {
+  const arrString = string.trim().toLowerCase().split(`_`);
+
+  let finalString = [];
+  for (const n of arrString) {
+    if (n === arrString[0]) {
+      // finalString(
+      //   arrString[s][0].toLowerCase() + arrString[s].slice(1).toLowerCase(),
+      // );
+      finalString.push(n);
+    } else {
+      //finalString.push(n[0].toUpperCase() + n.slice(1).toLowerCase());
+      finalString.push(n.replace(n[0], n[0].toUpperCase()));
+    }
+  }
+  console.log(
+    finalString.join(``).padEnd(longestString + 5, ` `) +
+      `${`✅`.repeat(emojiCount + 1)}`,
+  );
+}
