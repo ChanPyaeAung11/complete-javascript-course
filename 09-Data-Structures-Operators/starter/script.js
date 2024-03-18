@@ -5,6 +5,7 @@
 //   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 const days = [`mon`, `tues`, `wed`, `thu`, `fri`, `sat`, `sun`];
 
+// object key names can only be string. if not, js will convert it.
 const openingHours = {
   // calc the key name instead of static
   [days[4]]: {
@@ -19,7 +20,14 @@ const openingHours = {
     open: 10, // Open 24 hours
     close: 24,
   },
+  1: 2, // js converts this to string
+  3: 5,
+  true: `No`,
 };
+
+console.log(openingHours[1]);
+console.log(openingHours[true]);
+
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -34,8 +42,8 @@ const restaurant = {
     return [this.starterMenu[index1], this.starterMenu[index2]];
   },
 
-  // arrays and objs can be destrucuted at the paramter themselves
-  orderComesInArray([el1, el2, el3, el4]) {
+  // arrays and objs can be destructured at the parameter themselves
+  orderComesInArray([el1 = 10, el2, el3, el4]) {
     // const [el1, el2, el3] = arr;
     console.log(el1, el2, el3, el4);
   },
@@ -49,7 +57,7 @@ const restaurant = {
     // destructuring can be done inside block or directly inside parameter
     // const { time, address, mainIndex, starterIndex } = obj;
     console.log(
-      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`,
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
   orderPasta: function (ing1, ing2, ing3) {
@@ -147,7 +155,7 @@ restaurant.orderDelivery({
 
 restaurant.orderDelivery({});
 
-restaurant.orderComesInArray(['22:30', 'Via del Sole, 21', 2, 3]);
+restaurant.orderComesInArray([, 'Via del Sole, 21', 2, 3]);
 
 // spread operators ...
 // taking elements out and putting in somewhere. no vars were created
@@ -181,7 +189,7 @@ const letters = [...str, '', 'S.'];
 console.log(letters);
 console.log(...str);
 
-// console.log(`${...str} ipso facto`);
+// console.log(`${...str} ipso facto`); will not work. only expecting 1 value
 
 // calling functions with spread
 // const ingredients = [
@@ -444,6 +452,7 @@ if (restaurant.openingHours && restaurant.openingHours.mon)
   console.log(restaurant.openingHours.mon.open);
 
 // only undefined and null will be flagged
+// will return undefined or null when it reaches instead of error
 console.log(restaurant?.openingHours?.mon?.open);
 
 // objects
@@ -507,7 +516,7 @@ GOOD LUCK 😀
 
 const scoreInEntries = game.scored.entries();
 console.log(scoreInEntries);
-for (const [i, j] of game.scored.entries()) console.log(`Goal ${i + 1}: ${j}`);
+for (const [i, j] of scoreInEntries) console.log(`Goal ${i + 1}: ${j}`);
 
 let total = 0;
 const oddValues = Object.values(game.odds);
@@ -524,7 +533,7 @@ for (const [i, j] of oddInEntries) {
 }
 
 let scorers = {};
-console.log(...game.scored.entries());
+console.log(...(scoreInEntries + 'haha')); // cannot print like this
 // terrible way
 // for (const [i, k] of game.scored.entries()) {
 //   let goal = 0;
@@ -696,7 +705,7 @@ const fullTimeGame = [...gameEvents.keys()].pop();
 console.log(
   `An event happened, on average, every ${
     fullTimeGame / gameEvents.size
-  } minutes`,
+  } minutes`
 );
 
 for (const [j, k] of gameEvents) {
@@ -924,7 +933,7 @@ function convertToCamelCase(emojiCount, string, longestString) {
   }
   console.log(
     finalString.join(``).padEnd(longestString + 5, ` `) +
-      `${`✅`.repeat(emojiCount + 1)}`,
+      `${`✅`.repeat(emojiCount + 1)}`
   );
 }
 
@@ -947,7 +956,11 @@ for (const f of flightArray) {
   const eachFlight = f.split(`;`);
   const delayOrNot = eachFlight[0].replace(/_/g, ` `).trim();
 
-  const finalString = `${delayOrNot.includes(`Delayed`) ? `🔴` : ``} ${delayOrNot} from ${getCode(eachFlight[1])} to ${getCode(eachFlight[2])} (${eachFlight[3].replace(`:`, `h`)})`;
+  const finalString = `${
+    delayOrNot.includes(`Delayed`) ? `🔴` : ``
+  } ${delayOrNot} from ${getCode(eachFlight[1])} to ${getCode(
+    eachFlight[2]
+  )} (${eachFlight[3].replace(`:`, `h`)})`;
   finalStrings.push(finalString);
 }
 
