@@ -246,8 +246,12 @@ document
 
 // IIFEs
 // to be used in async/await
-// can declare and use private variables once and done
 // delcare functions and execute once
+// can declare and use private variables once and done
 (() => console.log('This will nvr run again'))();
 
 // just use block scope to do delcare and use of private vars from es6
+{
+  const privVar1 = 'This is a private person';
+  const privVar2 = `This is the way now for decla`;
+}
