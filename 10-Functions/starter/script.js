@@ -1,3 +1,5 @@
+'use strict';
+
 const bookings = [];
 
 const createBooking = function (
@@ -241,3 +243,11 @@ poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
 document
   .querySelector(`.poll`)
   .addEventListener(`click`, poll.registerNewAnswer.bind(poll));
+
+// IIFEs
+// to be used in async/await
+// can declare and use private variables once and done
+// delcare functions and execute once
+(() => console.log('This will nvr run again'))();
+
+// just use block scope to do delcare and use of private vars from es6
