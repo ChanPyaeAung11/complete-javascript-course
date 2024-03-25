@@ -33,9 +33,9 @@ const checkIn = function (flightNum, passenger) {
   passenger.name = `Mr. ` + passenger.name;
 
   if (passenger.passport === 234323) {
-    alert(`Checked in`);
+    //alert(`Checked in`);
   } else {
-    alert(`Wrong passport`);
+    //alert(`Wrong passport`);
   }
 };
 checkIn(flight, jonas);
@@ -46,3 +46,57 @@ const newPassport = function (person) {
 };
 newPassport(jonas);
 checkIn(flight, jonas);
+
+// first class functions and higher order functions
+
+// these 2 methods are basically abstracted out implementations
+const oneWord = function (str) {
+  return str.replace(/ /g, ``).toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [first, ...others] = str.split(` `);
+  return [first.toUpperCase(), ...others].join(` `);
+};
+
+// higher order functions
+// functions accepting functions as arguments
+// this function will only care about transforming code. how it is done will be completed by abstracted methods.
+const transformer = function (str, fn) {
+  console.log(`Original String: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+
+  console.log(`Transformed by: ${fn.name}`);
+};
+
+// these 2 methods become callback functions 2 b called by other functions
+// similar as those of eventlisteners
+transformer(`Java is the best`, upperFirstWord);
+transformer(`Java is the best`, oneWord);
+
+const high5 = function () {
+  console.log(`Wave`);
+};
+
+document.body.addEventListener(`click`, high5);
+
+[`jonas`, `martha`, `array`].forEach(high5);
+
+// functions returning functions
+// it works because of closures
+
+// const greet = function (greeting) {
+//   return function (name) {
+//     console.log(`${greeting} ${name}`);
+//   };
+// };
+
+const greet = greeting => name => console.log(`${greeting} ${name}`);
+
+greet(`Hey`)(`Chan`);
+
+const greeterHey = greet(`Hey`);
+console.log(greeterHey);
+
+greeterHey(`Jonas`);
+greeterHey(`Steven`);
