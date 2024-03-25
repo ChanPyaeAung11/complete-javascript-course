@@ -244,7 +244,7 @@ document
   .querySelector(`.poll`)
   .addEventListener(`click`, poll.registerNewAnswer.bind(poll));
 
-// IIFEs
+// IIFEs - Immediately Invoked Function Expressions
 // to be used in async/await
 // delcare functions and execute once
 // can declare and use private variables once and done
@@ -255,3 +255,98 @@ document
   const privVar1 = 'This is a private person';
   const privVar2 = `This is the way now for decla`;
 }
+
+// Closures
+// every function scope has access to var environment of the execution context of its birth place
+// even after that execution context has been gone
+// VE attached to the function and most updated
+// js will look inside current scope -> closure -> scope chain
+
+const secureBooking = function () {
+  let passengerCount = 0;
+  // this fn is birthed in this secureBooking function. as such will have secureBooking's var environment
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+const booker = secureBooking();
+
+booker(); //1
+booker(); //2
+booker(); //3
+
+console.dir(booker);
+
+// diff use of closure
+// Example 1
+let f;
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  let z = function () {
+    console.log(`Just z function`);
+  };
+  const b = 7;
+  f = function () {
+    console.log(b * 2);
+    z();
+  };
+};
+
+g();
+// after g() is completed, f is assigned a function and have closure to VE of g()
+f();
+console.dir(f);
+
+// reassigning functions will input new closure
+h();
+f();
+
+console.dir(f);
+
+// Example 2 Timer
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  // this is a callback that will only be called after boardPassengers completed
+  // which means there is closure included in this function to execute these
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+    console.log(`This was the ${wait} s of waiting`);
+  }, wait * 1000);
+  wait = 69;
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+// if there is no perGroup in boardPassengers, this will b used.
+// proof that closure has higher priority than scope chain
+const perGroup = 1000;
+boardPassengers(180, 3);
+
+///////////////////////////////////////
+// Coding Challenge #2
+/* 
+This is more of a thinking challenge than a coding challenge 🤓
+
+Take the IIFE below and at the end of the function, attach an event listener that changes the color of the selected h1 element ('header') to blue, each time the BODY element is clicked. Do NOT select the h1 element again!
+
+And now explain to YOURSELF (or someone around you) WHY this worked! Take all the time you need. Think about WHEN exactly the callback function is executed, and what that means for the variables involved in this example.
+
+GOOD LUCK 😀
+*/
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.querySelector(`body`).addEventListener(`click`, function () {
+    header.style.color = 'blue';
+  });
+})();
